@@ -1,0 +1,79 @@
+name: SimpleNeedsREBIRTH
+version: ${project.version}
+
+main: com.subs.simpleneedsrebirth.SimpleNeedsREBIRTH
+api-version: 1.16
+authors: [SubToMyYTplz]
+description: Essentials But 100x less complicated
+commands:
+  die:
+    description: Kills yourslef
+    usage: /<command>
+    aliases: [suicide, sui]
+  heal:
+    description: Heals yourself
+    usage: /<command>
+    aliases: [healing, healme, hl]
+  hurt:
+    description: Hurts yourself
+    usage: /<command>
+    aliases: [hurting, hurtme, ht]
+  feed:
+    description: Feeds yourself
+    usage: /<command>
+    aliases: [feeding, feedme, fd]
+  battle:
+    description: Reset a players health, hugner, and saturation to normal amounts
+    usage: /<command>
+    aliases: [btle, bttl]
+  fly:
+    description: Toggle flight
+    usage: /<command>
+    aliases: [fl]
+  gmsp:
+    description: Spectator mode
+    usage: /<command>
+  gms:
+    description: Survival mode
+    usage: /<command>
+  gmc:
+    description: Creative mode
+    usage: /<command>
+  gma:
+    description: Adventure mode
+    usage: /<command>
+  ci:
+    description: Clear Inventory
+    usage: /<command>
+  god:
+    description: Invincibility
+    usage: /<command>
+  vanish:
+    description: Go invisible? Maybe?
+    aliases: [vn]
+    usage: /<command>
+  trash:
+    description: Open a GUI to throw away certain items in your inventory
+    aliases: [trashcan]
+    usage: /<command>
+  freeze:
+    description: Set Walkspeed to 0
+    usage: /<command>
+  extinguish:
+    description: No more fire
+    usage: /<command>
+  arrowremove:
+    description: remove arrows
+    usage: /<command>
+  damage:
+    description: deal damage
+    usage: /<command>
+  blast:
+    description: blast away players
+    usage: /<command>
+  implode:
+    description: boom but reverse
+    usage: /<command>
+  leap:
+    description: leap
+    usage: /<command>
