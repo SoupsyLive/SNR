@@ -49,5 +49,5 @@ public final class SimpleNeedsREBIRTH extends JavaPlugin {
     }
 
 
-    public double healthpack;
+
 }
