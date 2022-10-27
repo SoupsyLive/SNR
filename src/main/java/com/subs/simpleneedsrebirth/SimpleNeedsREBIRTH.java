@@ -12,7 +12,7 @@ public final class SimpleNeedsREBIRTH extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
         //getServer().getPluginManager().registerEvents(new KillTest(), this);
-        getServer().getPluginManager().registerEvents(new ArrowHit(), this);
+        //getServer().getPluginManager().registerEvents(new ArrowHit(), this);
         getServer().getPluginManager().registerEvents(new SlamTest(), this);
         getCommand("die").setExecutor(new suicide());
         getCommand("heal").setExecutor(new heal());
