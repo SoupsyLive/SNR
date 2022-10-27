@@ -2,56 +2,68 @@ package com.subs.simpleneedsrebirth.commands;
 
 import com.subs.simpleneedsrebirth.utils.ArgNumbCheckUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class damage implements CommandExecutor {
+public class newheal implements CommandExecutor {
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("damage")){
+        if (command.getName().equalsIgnoreCase("command")){
             if (sender instanceof Player){ //player or server?
                 //Player ran
-                Player p = (Player) sender; //define player as sender
-                if(p.hasPermission("snr.damage")){ //self perm check
+                Player p = (Player) sender;
+                //define player as sender
+                double maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue();
+                double curHealth = p.getHealth();
+                double healthDif = (maxHealth-curHealth);
+                int varMount = Integer.parseInt(args[0]);
+                double chatHeal = Math.round((varMount/1000) * 10) / 10;
+
+                if(p.hasPermission("snr.command")){ //self perm check
                     if (args.length == 0){ // no args
                         // solo command (/cmd)
-                        p.damage(1);
-                        p.sendMessage("§3§lSN§c§lR §6§l>§r§3 Took §b1 §3damage.");
+                        p.setHealth(maxHealth);
+                        p.sendMessage("§3§lSN§c§lR §6§l>§r§3 Healed.");
                     }else if (args.length == 1){ //1 arg
                         // command + 1 arg (/cmd 1)
-                        Player t = Bukkit.getPlayerExact(args[0]); //define target
+                        Player t = Bukkit.getPlayerExact(args[0]);
+                        //define target
+                        double tmaxHealth = t.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue();
+                        double tcurHealth = t.getHealth();
+                        double thealthDif = (tmaxHealth-tcurHealth);
+
                         if(args[0].equalsIgnoreCase("-s")){ //if arg 0 is -s
                             //silent ran
                             //base action without message
-                            p.damage(1);
+                            p.setHealth(maxHealth);
                         }else if(t instanceof Player){
-                            if(p.hasPermission("snr.damage.others")){ //perm check
+                            if(p.hasPermission("snr.command.others")){ //perm check
                                 //base action ran on player
-                                t.damage(1);
-                                p.sendMessage("§3§lSN§c§lR §6§l>§r§3 §d"+t.getDisplayName()+" §3took §b1 §3damage.");
-                                t.sendMessage("§3§lSN§c§lR §6§l>§r§3 Took §b1 §3damage.");
+
+                                p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE §"+t.getDisplayName()+".");
+                                t.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                             }else{
                                 //no perms for others
                                 p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have perms to use this on others.");
                             }
                         }else if(args[0].equalsIgnoreCase("@a") || args[0].equalsIgnoreCase("*")) {
-                            if(p.hasPermission("snr.damage.others")){
+                            if(p.hasPermission("snr.command.others")){
                                 for (Player ps : Bukkit.getOnlinePlayers()) {
-                                    ps.damage(1);
-                                    p.sendMessage("§3§lSN§c§lR §6§l>§r§3 §dEveryone §3took §b1 §3damage.");
-                                    ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 §3Took §b1 §3damage.");
+                                    p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE§d Everyone §r§3.");
+                                    ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                                 }
                             }else{//no perms
                                 p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have perms to use this on others.");
                             }
                         }else if(ArgNumbCheckUtil.isInt(args[0])) {  //number check, check utils > ArgNumbCheckUtil
                             // self action defined by number
-                            int varMount = Integer.parseInt(args[0]);
+
                             p.damage(varMount);
-                            p.sendMessage("§3§lSN§c§lR §6§l>§r§3 Took §b"+varMount+" §3damage.");
+                            p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE.");
                         }else{ //none of the checks work
                             p.sendMessage("§3§lSN§r§cR §3§l>§r§c Invalid arguments.");
                         }
@@ -60,7 +72,7 @@ public class damage implements CommandExecutor {
                         if(ArgNumbCheckUtil.isInt(args[0])){ // numb check /cmd HERE -s
                             //self silent
                             if(args[1].equalsIgnoreCase("-s")){
-                                int varMount = Integer.parseInt(args[0]);
+
                                 p.damage(varMount);
                                 //no message
                             }else{ //1st slot is number, 2nd slot is not -s
@@ -72,11 +84,11 @@ public class damage implements CommandExecutor {
                                 if(args[1].equalsIgnoreCase("-s")){
                                     t.damage(1); //silent target base action
                                 }else if(ArgNumbCheckUtil.isInt(args[1])){
-                                    if(p.hasPermission("snr.damage.others")){ //perm check
-                                        int varMount = Integer.parseInt(args[1]);
+                                    if(p.hasPermission("snr.command.others")){ //perm check
+
                                         t.damage(varMount);
-                                        p.sendMessage("§3§lSN§c§lR §6§l>§r§3 §d"+t.getDisplayName()+" §3took §b"+varMount+" §3damage.");
-                                        t.sendMessage("§3§lSN§c§lR §6§l>§r§3 Took §b"+varMount+" §3damage.");
+                                        p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE §"+t.getDisplayName()+".");
+                                        t.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                                     }else{//no perms
                                         p.sendMessage("§3§lSN§r§cR §3§l>§r§c You don't have the perms for that.");
                                     }
@@ -89,11 +101,11 @@ public class damage implements CommandExecutor {
                                     if(args[1].equalsIgnoreCase("-s")){
                                         t.damage(1); //silent target base action
                                     }else if(ArgNumbCheckUtil.isInt(args[1])){
-                                        if(p.hasPermission("snr.damage.others")){ //perm check
-                                            int varMount = Integer.parseInt(args[1]);
+                                        if(p.hasPermission("snr.command.others")){ //perm check
+
                                             ps.damage(varMount);
-                                            p.sendMessage("§3§lSN§c§lR §6§l>§r§3 §dEveryone §3took §b"+varMount+" §3damage.");
-                                            ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 Took §b"+varMount+" §3damage.");
+                                            p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE§d EVERYONE§3.");
+                                            ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                                         }else{//no perms
                                             p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have the perms to run this on others.");
                                         }
@@ -115,7 +127,7 @@ public class damage implements CommandExecutor {
                             if(ArgNumbCheckUtil.isInt(args[1])){
                                 if(args[2].equalsIgnoreCase("-s")){
                                     //silent specified
-                                    int varMount = Integer.parseInt(args[1]);
+
                                     t.damage(varMount);
                                 }else{//3 args but 3rd isnt -s
                                     p.sendMessage("§3§lSN§r§cR §3§l>§r§c You have too many arguments, use -s as your third argument to make it silent.");
@@ -127,9 +139,9 @@ public class damage implements CommandExecutor {
                             for(Player ps : Bukkit.getOnlinePlayers()){
                                 if(ArgNumbCheckUtil.isInt(args[1])){
                                     if(args[2].equalsIgnoreCase("-s")){
-                                        if(p.hasPermission("snr.damage.others")){
+                                        if(p.hasPermission("snr.command.others")){
                                             //silent specified
-                                            int varMount = Integer.parseInt(args[1]);
+
                                             ps.damage(varMount);
                                         }else{//no perms
                                             p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have the perms to run this on others.");
@@ -154,36 +166,36 @@ public class damage implements CommandExecutor {
                 //Console ran
                 if(args.length == 2){
                     //cmd 1 2
-                    Player t = Bukkit.getPlayerExact(args[0]);
-                    if(t instanceof Player){
-                        if(args[1].equalsIgnoreCase("-s")){
-                            t.damage(1); //silent target base action
-                        }else if(ArgNumbCheckUtil.isInt(args[1])){
-                            int varMount = Integer.parseInt(args[1]);
-                            t.damage(varMount);
-                            System.out.println("§3§lSN§c§lR §6§l>§r§3 §d"+t.getDisplayName()+" §3took §b"+varMount+" §3damage.");
-                            t.sendMessage("§3§lSN§c§lR §6§l>§r§3 Took §b"+varMount+" §3damage.");
-
-
-                        }else{ //2nd slot not a number or silent, error
-                            System.out.println("§3§lSN§r§cR §3§l>§r§c Your second argument is invalid.");
-                        }
-                    }else if(args[0].equalsIgnoreCase("@a") || args[0].equalsIgnoreCase("*")){
-                        for(Player ps : Bukkit.getOnlinePlayers()){
+                        Player t = Bukkit.getPlayerExact(args[0]);
+                        if(t instanceof Player){
                             if(args[1].equalsIgnoreCase("-s")){
                                 t.damage(1); //silent target base action
                             }else if(ArgNumbCheckUtil.isInt(args[1])){
-                                int varMount = Integer.parseInt(args[1]);
-                                ps.damage(varMount);
-                                System.out.println("§3§lSN§c§lR §6§l>§r§3 §dEveryone §3took §b"+varMount+" §3damage.");
-                                ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 Took §b"+varMount+" §3damage.");
+                                    int varMount = Integer.parseInt(args[1]);
+                                    t.damage(varMount);
+                                System.out.println("§3§lSN§c§lR §6§l>§r§3 MESSAGE §"+t.getDisplayName()+".");
+                                    t.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
+
+
                             }else{ //2nd slot not a number or silent, error
                                 System.out.println("§3§lSN§r§cR §3§l>§r§c Your second argument is invalid.");
                             }
+                        }else if(args[0].equalsIgnoreCase("@a") || args[0].equalsIgnoreCase("*")){
+                            for(Player ps : Bukkit.getOnlinePlayers()){
+                                if(args[1].equalsIgnoreCase("-s")){
+                                    t.damage(1); //silent target base action
+                                }else if(ArgNumbCheckUtil.isInt(args[1])){
+                                        int varMount = Integer.parseInt(args[1]);
+                                        ps.damage(varMount);
+                                    System.out.println("§3§lSN§c§lR §6§l>§r§3 MESSAGE §"+t.getDisplayName()+".");
+                                        ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
+                                }else{ //2nd slot not a number or silent, error
+                                    System.out.println("§3§lSN§r§cR §3§l>§r§c Your second argument is invalid.");
+                                }
+                            }
+                        }else{ //invalid player
+                            System.out.println("§3§lSN§r§cR §3§l>§r§c You have to run this on a player with that many arguments.");
                         }
-                    }else{ //invalid player
-                        System.out.println("§3§lSN§r§cR §3§l>§r§c You have to run this on a player with that many arguments.");
-                    }
                 }else if(args.length == 3){
                     //cmd 1 2 3
                     //target number silent
@@ -223,6 +235,7 @@ public class damage implements CommandExecutor {
 
             }
         }
-        return true;
+    return true;
     }
 }
+

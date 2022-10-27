@@ -18,6 +18,7 @@ public class ArrowHit implements Listener {
         Player dam;
         //victim
         Player vic;
+
         if(e.getDamager() instanceof Projectile) {
             //if damager is projectile, protectile is named "pj"
             Projectile pj = (Projectile) e.getDamager();
@@ -29,12 +30,20 @@ public class ArrowHit implements Listener {
                     //get victim health
                     double hpMount = vic.getHealth();
                     double abMount = vic.getAbsorptionAmount();
+                    double dmg = e.getDamage();
                     int rHpMount = (int) hpMount;
                     int rAbMount = (int) abMount;
+                    int rDmg = (int) dmg;
+                    int newHp = ((rHpMount+rAbMount)-rDmg);
                     //get victim name
                     String vicName = vic.getDisplayName();
                     //send shooter victim name and health
-                    dam.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§3"+vicName+" §c§l"+((rHpMount+rAbMount)/2)+"§r§c❤"));
+                    if (newHp >= 0) {
+                        dam.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§3"+vicName+" §c§l"+newHp+"§r§c❤"));
+                    }else{
+                        dam.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§3"+vicName+" §c§l"+0+"§r§c❤"));
+                    }
+
                 }
             }
         }

@@ -32,7 +32,7 @@ public class formatgetnumber implements CommandExecutor {
                                 t.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                             }else{
                                 //no perms for others
-                                p.sendMessage("§3§lSNR >§r§c You do not have perms to use this on others.");
+                                p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have perms to use this on others.");
                             }
                         }else if(args[0].equalsIgnoreCase("@a") || args[0].equalsIgnoreCase("*")) {
                             if(p.hasPermission("snr.command.others")){
@@ -41,7 +41,7 @@ public class formatgetnumber implements CommandExecutor {
                                     ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                                 }
                             }else{//no perms
-                                p.sendMessage("§3§lSNR >§r§c You do not have perms to use this on others.");
+                                p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have perms to use this on others.");
                             }
                         }else if(ArgNumbCheckUtil.isInt(args[0])) {  //number check, check utils > ArgNumbCheckUtil
                             // self action defined by number
@@ -49,7 +49,7 @@ public class formatgetnumber implements CommandExecutor {
                             p.damage(varMount);
                             p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE.");
                         }else{ //none of the checks work
-                            p.sendMessage("§3§lSNR >§r§c Invalid arguments.");
+                            p.sendMessage("§3§lSN§r§cR §3§l>§r§c Invalid arguments.");
                         }
                     }else if(args.length == 2){
                         //cmd 1 2
@@ -60,7 +60,7 @@ public class formatgetnumber implements CommandExecutor {
                                 p.damage(varMount);
                                 //no message
                             }else{ //1st slot is number, 2nd slot is not -s
-                                p.sendMessage("§3§lSNR >§r§c You have too many arguments.");
+                                p.sendMessage("§3§lSN§r§cR §3§l>§r§c You have too many arguments.");
                             }
                         }else{ //target player instead
                             Player t = Bukkit.getPlayerExact(args[0]);
@@ -74,11 +74,11 @@ public class formatgetnumber implements CommandExecutor {
                                         p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE §"+t.getDisplayName()+".");
                                         t.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                                     }else{//no perms
-                                        p.sendMessage("§3§lSNR >§r§c You don't have the perms for that.");
+                                        p.sendMessage("§3§lSN§r§cR §3§l>§r§c You don't have the perms for that.");
                                     }
 
                                 }else{ //2nd slot not a number or silent, error
-                                    p.sendMessage("§3§lSNR >§r§c Your second argument doesn't work.");
+                                    p.sendMessage("§3§lSN§r§cR §3§l>§r§c Your second argument doesn't work.");
                                 }
                             }else if(args[0].equalsIgnoreCase("@a") || args[0].equalsIgnoreCase("*")){
                                 for(Player ps : Bukkit.getOnlinePlayers()){
@@ -88,18 +88,18 @@ public class formatgetnumber implements CommandExecutor {
                                         if(p.hasPermission("snr.command.others")){ //perm check
                                             int varMount = Integer.parseInt(args[1]);
                                             ps.damage(varMount);
-                                            p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE §"+t.getDisplayName()+".");
+                                            p.sendMessage("§3§lSN§c§lR §6§l>§r§3 MESSAGE§d EVERYONE§3.");
                                             ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                                         }else{//no perms
-                                            p.sendMessage("§3§lSNR >§r§c You do not have the perms to run this on others.");
+                                            p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have the perms to run this on others.");
                                         }
 
                                     }else{ //2nd slot not a number or silent, error
-                                        p.sendMessage("§3§lSNR >§r§c Your second argument is invalid.");
+                                        p.sendMessage("§3§lSN§r§cR §3§l>§r§c Your second argument is invalid.");
                                     }
                                 }
                             }else{ //invalid player
-                                p.sendMessage("§3§lSNR >§r§c Invalid player.");
+                                p.sendMessage("§3§lSN§r§cR §3§l>§r§c Invalid player.");
                             }
 
                         }
@@ -114,10 +114,10 @@ public class formatgetnumber implements CommandExecutor {
                                     int varMount = Integer.parseInt(args[1]);
                                     t.damage(varMount);
                                 }else{//3 args but 3rd isnt -s
-                                    p.sendMessage("§3§lSNR >§r§c You have too many arguments, use -s as your third argument to make it silent.");
+                                    p.sendMessage("§3§lSN§r§cR §3§l>§r§c You have too many arguments, use -s as your third argument to make it silent.");
                                 }
                             }else{//3 args but 2nd isn't number
-                                p.sendMessage("§3§lSNR >§r§c The 2nd argument has to be a number.");
+                                p.sendMessage("§3§lSN§r§cR §3§l>§r§c The 2nd argument has to be a number.");
                             }
                         }else if(args[0].equalsIgnoreCase("@a") || args[0].equalsIgnoreCase("*")){
                             for(Player ps : Bukkit.getOnlinePlayers()){
@@ -128,23 +128,23 @@ public class formatgetnumber implements CommandExecutor {
                                             int varMount = Integer.parseInt(args[1]);
                                             ps.damage(varMount);
                                         }else{//no perms
-                                            p.sendMessage("§3§lSNR >§r§c You do not have the perms to run this on others.");
+                                            p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have the perms to run this on others.");
                                         }
                                     }else{//3 args but 3rd isnt -s
-                                        p.sendMessage("§3§lSNR >§r§c You have too many arguments, use -s as your third argument to make it silent.");
+                                        p.sendMessage("§3§lSN§r§cR §3§l>§r§c You have too many arguments, use -s as your third argument to make it silent.");
                                     }
                                 }else{//3 args but 2nd isn't number
-                                    p.sendMessage("§3§lSNR >§r§c The 2nd argument has to be a number.");
+                                    p.sendMessage("§3§lSN§r§cR §3§l>§r§c The 2nd argument has to be a number.");
                                 }
                             }
                         }else{ // non player target
-                            p.sendMessage("§3§lSNR >§r§c You have to run this on a player with that many arguments.");
+                            p.sendMessage("§3§lSN§r§cR §3§l>§r§c You have to run this on a player with that many arguments.");
                         }
                     }else{ //too many arguments
-                        p.sendMessage("§3§lSNR >§r§c Too many arguments.");
+                        p.sendMessage("§3§lSN§r§cR §3§l>§r§c Too many arguments.");
                     }
                 }else{
-                    p.sendMessage("§3§lSNR >§r§c You do not have the perms for this.");
+                    p.sendMessage("§3§lSN§r§cR §3§l>§r§c You do not have the perms for this.");
                 }
             }else{
                 //Console ran
@@ -162,7 +162,7 @@ public class formatgetnumber implements CommandExecutor {
 
 
                             }else{ //2nd slot not a number or silent, error
-                                //error mesage
+                                System.out.println("§3§lSN§r§cR §3§l>§r§c Your second argument is invalid.");
                             }
                         }else if(args[0].equalsIgnoreCase("@a") || args[0].equalsIgnoreCase("*")){
                             for(Player ps : Bukkit.getOnlinePlayers()){
@@ -174,11 +174,11 @@ public class formatgetnumber implements CommandExecutor {
                                     System.out.println("§3§lSN§c§lR §6§l>§r§3 MESSAGE §"+t.getDisplayName()+".");
                                         ps.sendMessage("§3§lSN§c§lR §6§l>§r§3 TARGETMESSAGE.");
                                 }else{ //2nd slot not a number or silent, error
-                                    //error mesage
+                                    System.out.println("§3§lSN§r§cR §3§l>§r§c Your second argument is invalid.");
                                 }
                             }
                         }else{ //invalid player
-                            //error message
+                            System.out.println("§3§lSN§r§cR §3§l>§r§c You have to run this on a player with that many arguments.");
                         }
                 }else if(args.length == 3){
                     //cmd 1 2 3
@@ -191,10 +191,10 @@ public class formatgetnumber implements CommandExecutor {
                                 int varMount = Integer.parseInt(args[1]);
                                 t.damage(varMount);
                             }else{//3 args but 3rd isnt -s
-                                //error message
+                                System.out.println("§3§lSN§r§cR §3§l>§r§c You have too many arguments, use -s as your third argument to make it silent.");
                             }
                         }else{//3 args but 2nd isn't number
-                            //error message
+                            System.out.println("§3§lSN§r§cR §3§l>§r§c The 2nd argument has to be a number.");
                         }
                     }else if(args[0].equalsIgnoreCase("@a") || args[0].equalsIgnoreCase("*")){
                         for(Player ps : Bukkit.getOnlinePlayers()){
@@ -204,17 +204,17 @@ public class formatgetnumber implements CommandExecutor {
                                     int varMount = Integer.parseInt(args[1]);
                                     ps.damage(varMount);
                                 }else{//3 args but 3rd isnt -s
-                                    //error message
+                                    System.out.println("§3§lSN§r§cR §3§l>§r§c You have too many arguments, use -s as your third argument to make it silent.");
                                 }
                             }else{//3 args but 2nd isn't number
-                                //error message
+                                System.out.println("§3§lSN§r§cR §3§l>§r§c The 2nd argument has to be a number.");
                             }
                         }
                     }else{ // non player target
-                        //error message
+                        System.out.println("§3§lSN§r§cR §3§l>§r§c You have to run this on a player with that many arguments.");
                     }
                 }else{ //too many arguments
-                    //error message
+                    System.out.println("§3§lSN§r§cR §3§l>§r§c Too many arguments.");
                 }
 
             }
